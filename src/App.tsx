@@ -20,7 +20,7 @@ import {
 import { LandingPage } from "./components/LandingPage";
 import { AuthPage } from "./components/AuthPage";
 import { ModelProfileActual } from "./components/ModelProfileActual";
-import { DesignerProfile } from "./components/DesignerProfile";
+import { DesignerProfileActual } from "./components/DesignerProfileActual";
 import { ProfilePage } from "./components/ProfilePage";
 import { ProfileSetup } from "./components/ProfileSetup";
 import { JobPosting } from "./components/JobPosting";
@@ -249,7 +249,11 @@ export default function App() {
             {/* Mobile dropdown */}
             {mobileMenuOpen && (
               <div className="md:hidden py-4 border-t border-neutral-200">
-                <MobileMenu navigate={navigate} setOpen={setMobileMenuOpen} onLogout={handleLogout} />
+                <MobileMenu
+                  navigate={navigate}
+                  setOpen={setMobileMenuOpen}
+                  onLogout={handleLogout}
+                />
               </div>
             )}
           </div>
@@ -267,7 +271,10 @@ export default function App() {
             <Route
               path="/auth"
               element={
-                <AuthPage onLogin={() => navigate("/feed")} onBack={() => navigate("/")} />
+                <AuthPage
+                  onLogin={() => navigate("/feed")}
+                  onBack={() => navigate("/")}
+                />
               }
             />
             <Route path="*" element={<Navigate to="/" replace />} />
@@ -278,18 +285,48 @@ export default function App() {
           <>
             <Route path="/" element={<Navigate to="/feed" replace />} />
             <Route path="/feed" element={<Feed onNavigate={navigate} />} />
-            <Route path="/discover" element={<SearchDiscoverActual onNavigate={navigate} />} />
+            <Route
+              path="/discover"
+              element={<SearchDiscoverActual onNavigate={navigate} />}
+            />
             <Route path="/job" element={<JobPosting onNavigate={navigate} />} />
-            <Route path="/messaging" element={<MessagingUnified onNavigate={navigate} />} />
-            <Route path="/messaging/:id" element={<MessagingUnified onNavigate={navigate} />} />
-            <Route path="/notifications" element={<Notifications onNavigate={navigate} />} />
-            <Route path="/profile" element={<ProfilePage onNavigate={navigate} />} />
+            <Route
+              path="/messaging"
+              element={<MessagingUnified onNavigate={navigate} />}
+            />
+            <Route
+              path="/messaging/:id"
+              element={<MessagingUnified onNavigate={navigate} />}
+            />
+            <Route
+              path="/notifications"
+              element={<Notifications onNavigate={navigate} />}
+            />
+            <Route
+              path="/profile"
+              element={<ProfilePage onNavigate={navigate} />}
+            />
             <Route path="/profile/:id" element={<ProfilePage />} />
-            <Route path="/profile/setup" element={<ProfileSetup onComplete={() => navigate("/profile")} />} />
-            <Route path="/model/:id" element={<ModelProfileActual onNavigate={navigate} />} />
-            <Route path="/designer/:id" element={<DesignerProfile onNavigate={navigate} />} />
-            <Route path="/connections" element={<ConnectionRequests onNavigate={navigate} />} />
-            <Route path="/connections/network" element={<ConnectionsNetwork onNavigate={navigate} />} />
+            <Route
+              path="/profile/setup"
+              element={<ProfileSetup onComplete={() => navigate("/profile")} />}
+            />
+            <Route
+              path="/model/:id"
+              element={<ModelProfileActual onNavigate={navigate} />}
+            />
+            <Route
+              path="/designer/:id"
+              element={<DesignerProfileActual onNavigate={navigate} />}
+            />
+            <Route
+              path="/connections"
+              element={<ConnectionRequests onNavigate={navigate} />}
+            />
+            <Route
+              path="/connections/network"
+              element={<ConnectionsNetwork onNavigate={navigate} />}
+            />
             <Route path="*" element={<Navigate to="/feed" replace />} />
           </>
         )}
@@ -299,7 +336,14 @@ export default function App() {
 }
 
 /* ---------------------- NAV BUTTON ---------------------- */
-function NavButton({ icon, label, path, active, navigate, alert = false }: any) {
+function NavButton({
+  icon,
+  label,
+  path,
+  active,
+  navigate,
+  alert = false,
+}: any) {
   return (
     <button
       onClick={() => navigate(path)}
@@ -349,16 +393,16 @@ function MobileMenu({
         </button>
       ))}
       <button
-        onClick={() => {
-          onLogout();
-          setOpen(false); // Close menu on logout
-        }}
-        className="flex items-center gap-3 px-4 py-3 bg-red-500 hover:bg-red-600 rounded-lg text-white mt-2 font-medium"
-      >
-        {/* Using Home icon again for simplicity, ideally import LogOut from 'lucide-react' */}
-        {<Home className="text-white" />} 
-        Logout
-      </button>
+        onClick={() => {
+          onLogout();
+          setOpen(false); // Close menu on logout
+        }}
+        className="flex items-center gap-3 px-4 py-3 bg-red-500 hover:bg-red-600 rounded-lg text-white mt-2 font-medium"
+      >
+               {" "}
+        {/* Using Home icon again for simplicity, ideally import LogOut from 'lucide-react' */}
+                {<Home className="text-white" />}        Logout      {" "}
+      </button>
     </div>
   );
 }

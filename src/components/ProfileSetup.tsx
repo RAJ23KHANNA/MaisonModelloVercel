@@ -176,6 +176,7 @@ export function ProfileSetup({ onComplete }: ProfileSetupProps) {
             }
             alt="Profile"
             className="w-28 h-28 rounded-full object-cover mb-3 border"
+            style={{ width: '100px', height: '100px' }}
           />
           <div className="flex gap-2">
             <label className="cursor-pointer bg-amber-500 text-white px-3 py-2 rounded-lg text-sm hover:bg-amber-600">
@@ -209,6 +210,7 @@ export function ProfileSetup({ onComplete }: ProfileSetupProps) {
             }
             alt="Cover"
             className="w-full h-28 object-cover rounded-lg mb-3 border"
+            style={{ width: '100px', height: '100px' }}
           />
           <div className="flex gap-2">
             <label className="cursor-pointer bg-amber-500 text-white px-3 py-2 rounded-lg text-sm hover:bg-amber-600">
