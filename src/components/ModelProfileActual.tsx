@@ -14,7 +14,10 @@ import {
 } from "lucide-react";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { supabase } from "../lib/supabaseClient";
-import { sendConnectionRequest, getConnectionStatus } from "../lib/connectionUtils";
+import {
+  sendConnectionRequest,
+  getConnectionStatus,
+} from "../lib/connectionUtils";
 
 interface ModelProfileActualProps {
   onNavigate?: (page: string, id?: string) => void;
@@ -25,7 +28,9 @@ export function ModelProfileActual({ onNavigate }: ModelProfileActualProps) {
 
   const [profile, setProfile] = useState<any>(null);
   const [connectionStatus, setConnectionStatus] = useState<string | null>(null);
-  const [connectionRequestId, setConnectionRequestId] = useState<string | null>(null);
+  const [connectionRequestId, setConnectionRequestId] = useState<string | null>(
+    null
+  );
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
@@ -40,16 +45,16 @@ export function ModelProfileActual({ onNavigate }: ModelProfileActualProps) {
         setLoading(false);
         return;
       }
-  
+
       try {
         setLoading(true);
-  
+
         const { data, error } = await supabase
           .from("profiles")
           .select("*")
           .eq("id", profileId)
           .single();
-  
+
         if (error) {
           setError("Profile not found or access restricted.");
           setProfile(null);
@@ -57,10 +62,10 @@ export function ModelProfileActual({ onNavigate }: ModelProfileActualProps) {
           setProfile(data);
           setError(null);
         }
-  
+
         // 🔍 Fetch connection state
         const connection = await getConnectionStatus(profileId);
-  
+
         if (connection) {
           if (connection.status === "accepted") {
             setConnectionStatus("accepted");
@@ -69,7 +74,7 @@ export function ModelProfileActual({ onNavigate }: ModelProfileActualProps) {
           } else {
             setConnectionStatus("none"); // no request from you yet
           }
-  
+
           setConnectionRequestId(connection.id);
         } else {
           setConnectionStatus("none"); // no connection at all
@@ -81,9 +86,9 @@ export function ModelProfileActual({ onNavigate }: ModelProfileActualProps) {
         setLoading(false);
       }
     };
-  
+
     loadProfile();
-  
+
     // 🚀 Real-time updates for connection acceptance
     const subscription = supabase
       .channel("connections-updates")
@@ -93,15 +98,15 @@ export function ModelProfileActual({ onNavigate }: ModelProfileActualProps) {
         async (payload) => {
           if (payload.new.status === "accepted") {
             console.log("🔄 Connection accepted — refreshing profile data");
-  
+
             const { data, error } = await supabase
               .from("profiles")
               .select("*")
               .eq("id", profileId)
               .single();
-  
+
             if (!error) setProfile(data);
-  
+
             // Optionally refresh connection status as well
             const connection = await getConnectionStatus(profileId);
             if (connection) {
@@ -112,56 +117,55 @@ export function ModelProfileActual({ onNavigate }: ModelProfileActualProps) {
         }
       )
       .subscribe();
-  
+
     return () => {
       supabase.removeChannel(subscription);
     };
   }, [profileId]);
-  
+
   // -----------------------------------------
   // ✅ Handle "Connect"
   // -----------------------------------------
 
-const handleConnect = async () => {
-  try {
-    if (!profileId) return;
+  const handleConnect = async () => {
+    try {
+      if (!profileId) return;
 
-    console.log("🔍 Checking existing connection...");
-    const connection = await getConnectionStatus(profileId);
-    console.log("ℹ️ Connection status result:", connection);
+      console.log("🔍 Checking existing connection...");
+      const connection = await getConnectionStatus(profileId);
+      console.log("ℹ️ Connection status result:", connection);
 
-    if (!connection) {
-      console.log("🟢 No existing connection — sending request...");
-      await sendConnectionRequest(profileId);
-      setConnectionStatus("sent");
-      return;
-    }
-
-    if (connection.status === "pending") {
-      if (connection.userPerspective === "sent") {
-        alert("Request already sent");
-      } else {
-        alert("You have a pending request from this user");
+      if (!connection) {
+        console.log("🟢 No existing connection — sending request...");
+        await sendConnectionRequest(profileId);
+        setConnectionStatus("sent");
+        return;
       }
-      return;
-    }
 
-    if (connection.status === "accepted") {
-      alert("You are already connected");
-      return;
-    }
+      if (connection.status === "pending") {
+        if (connection.userPerspective === "sent") {
+          alert("Request already sent");
+        } else {
+          alert("You have a pending request from this user");
+        }
+        return;
+      }
 
-    if (connection.status === "rejected") {
-      console.log("🟡 Old rejected connection — resending...");
-      await sendConnectionRequest(profileId);
-      setConnectionStatus("sent");
-      return;
-    }
-  } catch (error) {
-    console.error("❌ handleConnect error:", error);
-  }
-};
+      if (connection.status === "accepted") {
+        alert("You are already connected");
+        return;
+      }
 
+      if (connection.status === "rejected") {
+        console.log("🟡 Old rejected connection — resending...");
+        await sendConnectionRequest(profileId);
+        setConnectionStatus("sent");
+        return;
+      }
+    } catch (error) {
+      console.error("❌ handleConnect error:", error);
+    }
+  };
 
   // -----------------------------------------
   // UI States
@@ -287,13 +291,11 @@ const handleConnect = async () => {
 
                     {/* Dynamic Connection Button */}
                     {connectionStatus === "accepted" ? (
-                      <button className="px-6 py-3 bg-neutral-800 text-white rounded-lg hover:bg-neutral-700 transition flex items-center justify-center gap-2"
-                      >
+                      <button className="px-6 py-3 bg-neutral-800 text-white rounded-lg hover:bg-neutral-700 transition flex items-center justify-center gap-2">
                         Connected
                       </button>
                     ) : connectionStatus === "pending" ? (
-                      <button className="px-6 py-3 bg-neutral-800 text-white rounded-lg hover:bg-neutral-700 transition flex items-center justify-center gap-2"
-                      >
+                      <button className="px-6 py-3 bg-neutral-800 text-white rounded-lg hover:bg-neutral-700 transition flex items-center justify-center gap-2">
                         Request Sent
                       </button>
                     ) : (
@@ -316,9 +318,18 @@ const handleConnect = async () => {
 
                 {/* Stats */}
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-6 pt-6 border-t border-neutral-200">
-                  <Stat label="Instagram Followers" value={profile.instagram_followers} />
-                  <Stat label="TikTok Followers" value={profile.tiktok_followers} />
-                  <Stat label="Fashion Shows" value={profile.fashion_shows || profile.shows} />
+                  <Stat
+                    label="Instagram Followers"
+                    value={profile.instagram_followers}
+                  />
+                  <Stat
+                    label="TikTok Followers"
+                    value={profile.tiktok_followers}
+                  />
+                  <Stat
+                    label="Fashion Shows"
+                    value={profile.fashion_shows || profile.shows}
+                  />
                   <Stat label="Connections" value={profile.connections} />
                 </div>
               </div>
@@ -376,11 +387,16 @@ const handleConnect = async () => {
                       <div className="flex items-start justify-between mb-2">
                         <div>
                           <div className="text-neutral-900">{e.name}</div>
-                          <div className="text-neutral-600 text-sm">{e.role}</div>
+                          <div className="text-neutral-600 text-sm">
+                            {e.role}
+                          </div>
                         </div>
                         <div className="flex items-center gap-1">
                           {[1, 2, 3, 4, 5].map((s) => (
-                            <Star key={s} className="w-4 h-4 text-amber-500 fill-amber-500" />
+                            <Star
+                              key={s}
+                              className="w-4 h-4 text-amber-500 fill-amber-500"
+                            />
                           ))}
                         </div>
                       </div>
@@ -395,14 +411,23 @@ const handleConnect = async () => {
           {/* SIDEBAR */}
           <div className="space-y-8">
             <Section title="Social Media Reach">
-              <Social platform="Instagram" count={profile.instagram_followers} />
+              <Social
+                platform="Instagram"
+                count={profile.instagram_followers}
+              />
               <Social platform="TikTok" count={profile.tiktok_followers} />
             </Section>
 
             <Section title="Experience Highlights">
-              <Highlight title="Paris Fashion Week" desc="Featured for Chanel, Dior, Givenchy." />
+              <Highlight
+                title="Paris Fashion Week"
+                desc="Featured for Chanel, Dior, Givenchy."
+              />
               <Highlight title="Vogue Cover" desc="Vogue Paris, March 2024." />
-              <Highlight title="Brand Campaigns" desc="Collaborated with 40+ luxury brands." />
+              <Highlight
+                title="Brand Campaigns"
+                desc="Collaborated with 40+ luxury brands."
+              />
             </Section>
           </div>
         </div>

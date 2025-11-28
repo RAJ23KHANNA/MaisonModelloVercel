@@ -11,6 +11,7 @@ import {
   TrendingUp,
 } from "lucide-react";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
+import DesignerDashboardDrawer from "./DesignerDashboardDrawer";
 
 /* ---------------------- SMALL COMPONENTS ---------------------- */
 
@@ -67,6 +68,7 @@ export function ProfilePage() {
 
   const [profile, setProfile] = useState<any>(null);
   const [currentUser, setCurrentUser] = useState<any>(null);
+  const [openDesignerDashboard, setOpenDesignerDashboard] = useState(false);
   const [loading, setLoading] = useState(true);
 
   /* ---------------------- LOAD PROFILE ---------------------- */
@@ -194,14 +196,25 @@ export function ProfilePage() {
 
                   {/* Edit / Action Buttons */}
                   <div className="flex flex-col sm:flex-row gap-3">
-                    {isCurrentUser ? (
+                  {isCurrentUser ? (
+                    <div className="flex flex-col sm:flex-row gap-3">
                       <button
                         onClick={() => navigate("/profile/setup")}
                         className="px-6 py-3 bg-neutral-800 text-white rounded-lg hover:bg-neutral-700 transition flex items-center justify-center gap-2"
                       >
                         <Edit className="w-4 h-4" /> Edit Profile
                       </button>
-                    ) : (
+
+                      {profile.role === "designer" && (
+                        <button
+                          onClick={() => setOpenDesignerDashboard(true)}
+                          className="px-6 py-3 bg-gradient-to-r from-amber-500 to-amber-600 text-white rounded-lg hover:from-amber-600 hover:to-amber-700 transition flex items-center justify-center gap-2"
+                        >
+                          <Edit className="w-4 h-4" /> Designer Dashboard
+                        </button>
+                      )}
+                    </div>
+                  ) : (
                       <>
                         <button className="px-6 py-3 bg-gradient-to-r from-amber-500 to-amber-600 text-white rounded-lg hover:from-amber-600 hover:to-amber-700 transition flex items-center justify-center gap-2">
                           <MessageCircle className="w-4 h-4" /> Message
@@ -293,6 +306,13 @@ export function ProfilePage() {
           </div>
         </div>
       </div>
+      {openDesignerDashboard && (
+  <DesignerDashboardDrawer
+    designerId={profile.id}
+    onClose={() => setOpenDesignerDashboard(false)}
+  />
+)}
+
     </div>
   );
 }
