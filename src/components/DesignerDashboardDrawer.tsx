@@ -357,12 +357,12 @@ export default function DesignerDashboardDrawer({ designerId, onClose }: Props) 
 
   // Portal wrapper to modal-root or body
   return createPortal(
-    <div className={`fixed inset-0 z-60 flex ${isMobile ? "items-start justify-center" : "justify-end items-stretch"}`}>
+    <div className={`fixed inset-0 z-[999] flex ${isMobile ? "items-start justify-center" : "justify-end items-stretch"}`} style={{ pointerEvents: "auto" }} >
       {/* Backdrop */}
-      <div className="absolute inset-0 bg-black/40" onClick={onClose}></div>
+      <div className="absolute inset-0 bg-black/40 z-[998]" onClick={onClose}></div>
 
       {/* Drawer */}
-      <div className="relative z-50">
+      <div className="relative z-[1000]">
         {drawerContent}
       </div>
     </div>,
