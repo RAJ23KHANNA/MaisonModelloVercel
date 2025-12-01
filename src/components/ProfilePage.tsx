@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import DesignerDashboardDrawer from "./DesignerDashboardDrawer";
+import {DesignerJobList} from "./DesignerJobList"
 
 /* ---------------------- SMALL COMPONENTS ---------------------- */
 
@@ -286,6 +287,9 @@ export function ProfilePage() {
                 <ProfileField label="Languages" value={profile.languages} />
               </div>
             </div>
+            {profile.role === "designer" && (
+    <DesignerJobList designerId={profile.id} />
+  )}
           </div>
 
           {/* Right Column */}
