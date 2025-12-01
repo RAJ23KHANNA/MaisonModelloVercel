@@ -16,6 +16,7 @@ import {
   sendConnectionRequest,
   getConnectionStatus,
 } from "../lib/connectionUtils";
+import {DesignerJobList} from "./DesignerJobList"
 
 export function DesignerProfileActual() {
   const { id: designerId } = useParams<{ id: string }>();
@@ -353,6 +354,7 @@ export function DesignerProfileActual() {
                 ))
               )}
             </Section>
+            <DesignerJobList designerId={profile.id} />
 
             {/* ENDORSEMENTS */}
             <Section title="Endorsements & Reviews">
