@@ -58,7 +58,12 @@ export function LandingPage({ onNavigate }: LandingPageProps) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <span className="text-neutral-800">MaisonModello</span>
+              <span 
+                  className="text-neutral-800 hidden sm:block font-medium text-2xl" 
+                  style={{ fontFamily: 'Kings, serif', fontWeight: '400',lineHeight: '1' }} 
+                >
+                  MAISON<br/>MODELLO
+                </span>
             </div>
             <div className="flex items-center gap-4">
               <button
@@ -350,7 +355,12 @@ export function LandingPage({ onNavigate }: LandingPageProps) {
           <div className="grid md:grid-cols-4 gap-8 mb-8">
             <div>
               <div className="flex items-center gap-2 mb-4">
-                <span className="text-white">MaisonModello</span>
+                <span 
+                  className="text-neutral-800 hidden sm:block font-medium text-2xl" 
+                  style={{ fontFamily: 'Kings, serif', fontWeight: '400',lineHeight: '1' }} 
+                >
+                  MAISON<br/>MODELLO
+                </span>
               </div>
               <p className="text-neutral-400 text-sm">
                 The premier platform for fashion professionals worldwide.

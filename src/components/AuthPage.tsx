@@ -114,7 +114,12 @@ export function AuthPage({ onLogin, onBack }: AuthPageProps) {
 
           <div className="mb-8">
             <div className="flex items-center gap-2 mb-6">
-              <span className="text-neutral-800 text-xl">MaisonModello</span>
+              <span 
+                  className="text-neutral-800 hidden sm:block font-medium text-2xl" 
+                  style={{ fontFamily: 'Kings, serif', fontWeight: '400',lineHeight: '1' }} 
+                >
+                  MAISON<br/>MODELLO
+                </span>
             </div>
             <h1 className="text-neutral-900 mb-2">
               {isLogin ? "Welcome Back" : "Join Runway"}
