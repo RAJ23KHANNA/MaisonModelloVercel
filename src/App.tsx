@@ -175,11 +175,11 @@ export default function App() {
                 onClick={() => navigate("/feed")}
                 className="flex items-center gap-2"
               >
-                <div className="w-10 h-10 bg-gradient-to-br from-neutral-800 to-neutral-600 rounded-lg flex items-center justify-center">
-                  <span className="text-amber-400 font-bold">R</span>
-                </div>
-                <span className="text-neutral-800 hidden sm:block font-medium">
-                  MaisonModello
+                <span 
+                  className="text-neutral-800 hidden sm:block font-medium text-2xl" 
+                  style={{ fontFamily: 'Kings, serif', fontWeight: '400',lineHeight: '1' }} 
+                >
+                  MAISON<br/>MODELLO
                 </span>
               </button>
 

@@ -58,9 +58,6 @@ export function LandingPage({ onNavigate }: LandingPageProps) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <div className="w-10 h-10 bg-gradient-to-br from-neutral-800 to-neutral-600 rounded-lg flex items-center justify-center">
-                <span className="text-amber-400">R</span>
-              </div>
               <span className="text-neutral-800">MaisonModello</span>
             </div>
             <div className="flex items-center gap-4">
@@ -353,9 +350,6 @@ export function LandingPage({ onNavigate }: LandingPageProps) {
           <div className="grid md:grid-cols-4 gap-8 mb-8">
             <div>
               <div className="flex items-center gap-2 mb-4">
-                <div className="w-8 h-8 bg-gradient-to-br from-neutral-700 to-neutral-600 rounded-lg flex items-center justify-center">
-                  <span className="text-amber-400 text-sm">R</span>
-                </div>
                 <span className="text-white">MaisonModello</span>
               </div>
               <p className="text-neutral-400 text-sm">

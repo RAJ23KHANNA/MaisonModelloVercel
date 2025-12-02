@@ -114,9 +114,6 @@ export function AuthPage({ onLogin, onBack }: AuthPageProps) {
 
           <div className="mb-8">
             <div className="flex items-center gap-2 mb-6">
-              <div className="w-12 h-12 bg-gradient-to-br from-neutral-800 to-neutral-600 rounded-lg flex items-center justify-center">
-                <span className="text-amber-400">R</span>
-              </div>
               <span className="text-neutral-800 text-xl">MaisonModello</span>
             </div>
             <h1 className="text-neutral-900 mb-2">
