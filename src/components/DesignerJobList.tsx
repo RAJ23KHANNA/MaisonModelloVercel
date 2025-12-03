@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import { MapPin, Calendar, Users } from "lucide-react";
 import { fetchJobsByDesigner, JobRow } from "../lib/jobsService";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 
 export function DesignerJobList({ designerId }: { designerId: string }) {
   const [jobs, setJobs] = useState<JobRow[]>([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate(); // Initialize navigate function
 
   useEffect(() => {
     async function load() {
@@ -40,6 +42,7 @@ export function DesignerJobList({ designerId }: { designerId: string }) {
           {jobs.map((job) => (
             <div
               key={job.id}
+              onClick={() => navigate(`/job/${job.id}`)} // Navigate to job detail page
               className="border border-neutral-200 rounded-lg p-6 hover:border-amber-300 hover:bg-amber-50/30 transition cursor-pointer"
             >
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">

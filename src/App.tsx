@@ -24,6 +24,8 @@ import { DesignerProfileActual } from "./components/DesignerProfileActual";
 import { ProfilePage } from "./components/ProfilePage";
 import { ProfileSetup } from "./components/ProfileSetup";
 import { JobPosting } from "./components/JobPosting";
+import JobDetailsPage from "./components/JobDetailsPage";
+import { JobFeedPage } from "./components/JobFeedPage";
 import { Feed } from "./components/Feed";
 import { MessagingUnified } from "./components/MessagingUnified";
 import { SearchDiscoverActual } from "./components/SearchDiscoverActual";
@@ -289,7 +291,8 @@ export default function App() {
               path="/discover"
               element={<SearchDiscoverActual onNavigate={navigate} />}
             />
-            <Route path="/job" element={<JobPosting onNavigate={navigate} />} />
+            <Route path="/job" element={<JobFeedPage />} />
+            <Route path="/job/:id" element={<JobDetailsPage onNavigate={navigate} />} />
             <Route
               path="/messaging"
               element={<MessagingUnified onNavigate={navigate} />}
