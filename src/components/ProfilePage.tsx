@@ -69,7 +69,7 @@ export function ProfilePage() {
 
   const [profile, setProfile] = useState<any>(null);
   const [currentUser, setCurrentUser] = useState<any>(null);
-  const [openDesignerDashboard, setOpenDesignerDashboard] = useState(false);
+  // const [openDesignerDashboard, setOpenDesignerDashboard] = useState(false);
   const [loading, setLoading] = useState(true);
 
   /* ---------------------- LOAD PROFILE ---------------------- */
@@ -208,7 +208,8 @@ export function ProfilePage() {
 
                       {profile.role === "designer" && (
                         <button
-                          onClick={() => setOpenDesignerDashboard(true)}
+                          // onClick={() => setOpenDesignerDashboard(true)}
+                          onClick={() => navigate(`/dashboard/designer/${profile.id}`)}
                           className="px-6 py-3 bg-gradient-to-r from-amber-500 to-amber-600 text-white rounded-lg hover:from-amber-600 hover:to-amber-700 transition flex items-center justify-center gap-2"
                         >
                           <Edit className="w-4 h-4" /> Designer Dashboard
@@ -310,12 +311,12 @@ export function ProfilePage() {
           </div>
         </div>
       </div>
-      {openDesignerDashboard && (
+      {/* {openDesignerDashboard && (
   <DesignerDashboardDrawer
     designerId={profile.id}
     onClose={() => setOpenDesignerDashboard(false)}
   />
-)}
+)} */}
 
     </div>
   );

@@ -21,6 +21,7 @@ import { LandingPage } from "./components/LandingPage";
 import { AuthPage } from "./components/AuthPage";
 import { ModelProfileActual } from "./components/ModelProfileActual";
 import { DesignerProfileActual } from "./components/DesignerProfileActual";
+import DesignerDashboardDrawer from "./components/DesignerDashboardDrawer";
 import { ProfilePage } from "./components/ProfilePage";
 import { ProfileSetup } from "./components/ProfileSetup";
 import { JobPosting } from "./components/JobPosting";
@@ -33,6 +34,7 @@ import { ConnectionRequests } from "./components/ConnectionRequests";
 import { ConnectionsNetwork } from "./components/ConnectionsNetwork";
 import { Notifications } from "./components/Notifications";
 import { supabase } from "./lib/supabaseClient";
+import DesignerDashboardPage from "./components/DesignerDashboardPage";
 
 // ----------------- PROFILE TYPE -----------------
 type Profile = {
@@ -321,6 +323,10 @@ export default function App() {
             <Route
               path="/designer/:id"
               element={<DesignerProfileActual onNavigate={navigate} />}
+            />
+            <Route
+              path="dashboard/designer/:id"
+              element={<DesignerDashboardPage onNavigate={navigate} />}
             />
             <Route
               path="/connections"
