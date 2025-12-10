@@ -41,7 +41,7 @@ export function DesignerProfileActual() {
 
       // Load profile
       const { data: profileData } = await supabase
-        .from("profiles")
+        .from("profiles_view")
         .select("*")
         .eq("id", designerId)
         .single();

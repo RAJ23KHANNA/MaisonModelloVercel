@@ -40,7 +40,7 @@ export function ConnectionsNetwork() {
 
         // 3️⃣ Fetch those users' profiles
         const { data: profiles, error: profileError } = await supabase
-          .from("profiles")
+          .from("profiles_view")
           .select("id, full_name, role, location, profile_image")
           .in("id", otherIds);
 

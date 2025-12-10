@@ -159,7 +159,7 @@ export function Feed({ onNavigate }: { onNavigate: (page: string) => void }) {
         .select(
           `
           *,
-          profiles:user_id(id, full_name, profile_image, role, location, connections),
+          profiles:user_id(id, full_name, profile_image, role, location),
           post_likes(id, user_id),
           post_comments(id)
         `
@@ -766,7 +766,7 @@ function ProfileCard({
         return;
       }
       const { data, error } = await supabase
-        .from("profiles")
+        .from("profiles_view")
         .select("id, full_name, profile_image, role, location, connections")
         .eq("id", currentUser.id)
         .single();

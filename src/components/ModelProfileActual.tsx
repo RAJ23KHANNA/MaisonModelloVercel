@@ -50,7 +50,7 @@ export function ModelProfileActual({ onNavigate }: ModelProfileActualProps) {
         setLoading(true);
 
         const { data, error } = await supabase
-          .from("profiles")
+          .from("profiles_view")
           .select("*")
           .eq("id", profileId)
           .single();
@@ -100,7 +100,7 @@ export function ModelProfileActual({ onNavigate }: ModelProfileActualProps) {
             console.log("🔄 Connection accepted — refreshing profile data");
 
             const { data, error } = await supabase
-              .from("profiles")
+              .from("profiles_view")
               .select("*")
               .eq("id", profileId)
               .single();

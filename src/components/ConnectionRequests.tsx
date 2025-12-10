@@ -52,7 +52,7 @@ export function ConnectionRequests() {
 
     const senderIds = pending.map((p) => p.sender_id);
     const { data: senders } = await supabase
-      .from("profiles")
+      .from("profiles_view")
       .select("id, full_name, role, profile_image, location")
       .in("id", senderIds);
 

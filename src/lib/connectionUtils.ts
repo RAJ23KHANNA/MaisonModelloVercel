@@ -86,61 +86,28 @@ export async function getConnectionStatus(otherUserId: string) {
 
 /** --- Accept Connection --- */
 export async function acceptConnectionRequest(requestId: string) {
-    try {
-      console.log("🔹 Accepting connection:", requestId);
-  
-      // 1️⃣ Fetch the connection row
-      const { data: connection, error: fetchError } = await supabase
-        .from("connections")
-        .select("sender_id, receiver_id")
-        .eq("id", requestId)
-        .single();
-  
-      if (fetchError || !connection)
-        throw new Error(fetchError?.message || "Connection not found");
-  
-      const { sender_id, receiver_id } = connection;
-  
-      // 2️⃣ Mark the connection as accepted
-      const { error: updateError } = await supabase
-        .from("connections")
-        .update({ status: "accepted" })
-        .eq("id", requestId);
-  
-      if (updateError) throw updateError;
-  
-      console.log("✅ Connection status updated → accepted");
-  
-      // 3️⃣ Increment each profile’s connection count independently
-      const incrementConnections = async (userId: string) => {
-        const { data, error } = await supabase
-          .from("profiles")
-          .select("connections")
-          .eq("id", userId)
-          .single();
-  
-        if (error) throw error;
-  
-        const newCount = (data.connections || 0) + 1;
-        const { error: incError } = await supabase
-          .from("profiles")
-          .update({ connections: newCount })
-          .eq("id", userId);
-  
-        if (incError) throw incError;
-      };
-  
-      // Do each one individually
-      await incrementConnections(sender_id);
-      await incrementConnections(receiver_id);
-  
-      console.log("✅ Both connection counts incremented");
-      return { success: true };
-    } catch (error) {
-      console.error("❌ Error accepting connection:", error);
-      throw error;
-    }
+  try {
+    console.log("🔹 Accepting connection:", requestId);
+
+    // 1️⃣ Mark the connection as accepted
+    const { error: updateError } = await supabase
+      .from("connections")
+      .update({ status: "accepted" })
+      .eq("id", requestId);
+
+    if (updateError) throw updateError;
+
+    console.log("✅ Connection status updated → accepted");
+
+    // ❌ REMOVED: No need to manually increment 'profiles.connections' anymore.
+    // The 'profiles_view' will automatically calculate the new count next time we fetch it.
+
+    return { success: true };
+  } catch (error) {
+    console.error("❌ Error accepting connection:", error);
+    throw error;
   }
+}
 
 /** --- Reject Connection --- */
 export async function rejectConnectionRequest(requestId: string) {
